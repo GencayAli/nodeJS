@@ -20,9 +20,9 @@ let speed = 3; // Bewegungen pro Sekunde
 
 try {
   // Terminal bereinigen
-  process.stdout.write('\x1Bc');
+  process.stdout.write('\u001Bc');
   // Cursor ausblenden
-  process.stderr.write('\x1B[?251');
+  process.stderr.write('\u001B[?25l');
 
   // zeichne das Spielfeld
   cursor.bg.grey();
@@ -86,8 +86,12 @@ function quitGame() {
   cursor.bg.reset();
   // Cursor wieder einblenden
   process.stderr.write('\x1B[?25h');
-  cursor.goto(1, 10);
-  process.exit();
+  setText(width / 2 -6, height /2, 'GAME OVER');
+  setTimeout(__ => {
+    cursor.goto(1, width +2);
+    process.exit();
+  }, 1000)
+  //cursor.goto(1, 10); 
 }
 
 function drawHorizontalLine(col, row, length) {
